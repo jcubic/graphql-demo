@@ -2,5 +2,17 @@
   "name": "graphql",
   "version": "0.1.0",
   "main": "index.js",
-  "license": "MIT"
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": {
+    "name": "Jakub T. Jankiewicz",
+    "email": "jcubic@onet.pl",
+    "url": "https://jcubic.pl/me"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
 }
