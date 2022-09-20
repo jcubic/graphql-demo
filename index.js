@@ -1,13 +1,20 @@
-import { ApolloServer } from 'apollo-server';
+import { ApolloServer, gql } from 'apollo-server';
 
-const typeDefs = `
+const typeDefs = gql`
   type Query {
     greeting: String
+    names: [String]
   }
 `;
 
+const data = {
+  greeting: "Hello, world!",
+  names: ['lorem', 'ipsum', 'dolor', 'sit', 'amet']
+};
+
 const server = new ApolloServer({
-  typeDefs
+  typeDefs,
+  rootValue: data
 });
 
 server.listen({
