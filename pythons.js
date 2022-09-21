@@ -25,6 +25,4 @@ const pythons = [
   }
 ];
 
-module.exports = {
-  pythons
-};
+module.exports = pythons;

@@ -1,6 +1,6 @@
 const { ApolloServer, gql } = require('apollo-server');
 const fs = require('node:fs');
-const { pythons } = require('./pythons');
+const pythons = require('./pythons');
 const { randomDiceRolls, randomDiceRoll } = require('./random');
 
 /*
