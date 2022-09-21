@@ -8,6 +8,8 @@ const typeDefs = gql`
     names: [String]
     lorem: [String]
     randomDiceRolls: [Int]
+    eulersSeries: [Float]
+    e: Float
     counter: Int
   }
 `;
@@ -28,18 +30,32 @@ const randomArray = (count, sides = 6) => {
   return Array.from({length: count}, () => randomDiceRoll(sides));
 };
 
+const eulersSeries = () => {
+  return Array.from({ length: 100 }, (_, i) => {
+    const n = i + 1;
+    return (1 + 1 / n) ** n;
+  });
+};
+
 const resolvers = {
   Query: {
-    greeting: () => "Hello, world!",
-    names: () => ['lorem', 'ipsum', 'dolor', 'sit', 'amet'],
     lorem,
     randomDiceRolls: () => randomArray(random_range(3, 7)),
-    counter: () => ++counter
+    counter: () => ++counter,
+    eulersSeries
   }
 };
 
+const rootValue = {
+  greeting: "Hello, world!",
+  e: Math.E,
+  names: ['lorem', 'ipsum', 'dolor', 'sit', 'amet'],
+}
+
+
 const server = new ApolloServer({
   typeDefs,
+  rootValue,
   resolvers
 });
 
