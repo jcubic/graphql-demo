@@ -1,4 +1,4 @@
-export const pythons = [
+const pythons = [
   {
     "first": "Graham",
     "last": "Chapman"
@@ -24,3 +24,7 @@ export const pythons = [
     "last": "Idle"
   }
 ];
+
+module.exports = {
+  pythons
+};

@@ -1,5 +1,7 @@
 const { ApolloServer, gql } = require('apollo-server');
 const fs = require('node:fs');
+const { pythons } = require('./pythons');
+const { randomDiceRolls, randomDiceRoll } = require('./random');
 
 /*
   schema {
@@ -15,6 +17,7 @@ const typeDefs = gql`
     greeting: String
     names: [String]
     lorem: [String]
+    randomDiceRoll: Int
     randomDiceRolls: [Int]
     eulersSeries: [Float]
     e: Float
@@ -51,18 +54,6 @@ const typeDefs = gql`
 
 const lorem = () => {
   return fs.readFileSync('lorem.txt', 'utf8').split(/\n+/).filter(Boolean);
-}
-
-function random_range(min, max) {
-    return Math.random() * (max - min) + min;
-}
-
-let counter = 0;
-
-const randomDiceRoll = (sides = 6) => Math.ceil(random_range(1, 6));
-
-const randomArray = (count, sides = 6) => {
-  return Array.from({length: count}, () => randomDiceRoll(sides));
 };
 
 const eulersSeries = () => {
@@ -72,37 +63,13 @@ const eulersSeries = () => {
   });
 };
 
-const pythons = [
-  {
-    "first": "Graham",
-    "last": "Chapman"
-  },
-  {
-    "first": "Terry",
-    "last": "Gilliam"
-  },
-  {
-    "first": "John",
-    "last": "Cleese"
-  },
-  {
-    "first": "Terry",
-    "last": "Jones"
-  },
-  {
-    "first": "Michael",
-    "last": "Palin"
-  },
-  {
-    "first": "Eric",
-    "last": "Idle"
-  }
-];
+let counter = 0;
 
 const resolvers = {
   Query: {
     lorem,
-    randomDiceRolls: () => randomArray(random_range(3, 7)),
+    randomDiceRoll,
+    randomDiceRolls,
     counter: () => ++counter,
     users: () => [
       {
@@ -120,8 +87,7 @@ const rootValue = {
   e: Math.E,
   pythons,
   names: ['lorem', 'ipsum', 'dolor', 'sit', 'amet'],
-}
-
+};
 
 const server = new ApolloServer({
   typeDefs,
