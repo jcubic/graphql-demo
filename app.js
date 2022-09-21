@@ -106,7 +106,8 @@ const rootValue = {
 const server = new ApolloServer({
   typeDefs,
   rootValue,
-  resolvers
+  resolvers,
+  introspection: true
 });
 
 server.listen({
