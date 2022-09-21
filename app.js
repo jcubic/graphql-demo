@@ -10,16 +10,17 @@ const typeDefs = gql`
   }
 `;
 
-const data = {
-  greeting: "Hello, world!",
-  names: ['lorem', 'ipsum', 'dolor', 'sit', 'amet'],
-  lorem: fs.readFileSync('lorem.txt', 'utf8').split(/\n+/).filter(Boolean)
+const resolvers = {
+  Query: {
+    greeting: () => "Hello, world!",
+    names: () => ['lorem', 'ipsum', 'dolor', 'sit', 'amet'],
+    lorem: () => fs.readFileSync('lorem.txt', 'utf8').split(/\n+/).filter(Boolean)
+  }
 };
 
 const server = new ApolloServer({
   typeDefs,
-  rootValue: data,
-  introspection: true
+  resolvers
 });
 
 server.listen({
