@@ -1,6 +1,14 @@
 const { ApolloServer, gql } = require('apollo-server');
 const fs = require('node:fs');
 
+/*
+  schema {
+    query: MyQuery
+  }
+  type MyQuery {
+  }
+
+*/
 
 const typeDefs = gql`
   type Query {
@@ -11,6 +19,33 @@ const typeDefs = gql`
     eulersSeries: [Float]
     e: Float
     counter: Int
+    today: DayOfWeek
+    users: [User!]!
+    pythons: [Python!]!
+  }
+  type Python {
+    first: String!
+    last: String!
+  }
+  type User {
+    full_name: String!
+    nick: String
+    address: Address
+  }
+  type Address {
+    street: String!
+    number: String
+    city: String
+    country: String
+  }
+  enum DayOfWeek {
+    MON
+    TUE
+    WED
+    THU
+    FRI
+    SAT
+    SUN
   }
 `;
 
@@ -37,11 +72,45 @@ const eulersSeries = () => {
   });
 };
 
+const pythons = [
+  {
+    "first": "Graham",
+    "last": "Chapman"
+  },
+  {
+    "first": "Terry",
+    "last": "Gilliam"
+  },
+  {
+    "first": "John",
+    "last": "Cleese"
+  },
+  {
+    "first": "Terry",
+    "last": "Jones"
+  },
+  {
+    "first": "Michael",
+    "last": "Palin"
+  },
+  {
+    "first": "Eric",
+    "last": "Idle"
+  }
+];
+
 const resolvers = {
   Query: {
     lorem,
     randomDiceRolls: () => randomArray(random_range(3, 7)),
     counter: () => ++counter,
+    users: () => [
+      {
+        full_name: "Jakub T Jankiewicz",
+        nick: "jcubic",
+        adress: null
+      }
+    ],
     eulersSeries
   }
 };
@@ -49,6 +118,7 @@ const resolvers = {
 const rootValue = {
   greeting: "Hello, world!",
   e: Math.E,
+  pythons,
   names: ['lorem', 'ipsum', 'dolor', 'sit', 'amet'],
 }
 
