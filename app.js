@@ -1,5 +1,5 @@
-import { ApolloServer, gql } from 'apollo-server';
-import fs from 'node:fs';
+const { ApolloServer, gql } = require('apollo-server');
+const fs = require('node:fs');
 
 
 const typeDefs = gql`
