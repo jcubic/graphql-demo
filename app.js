@@ -7,14 +7,34 @@ const typeDefs = gql`
     greeting: String
     names: [String]
     lorem: [String]
+    randomDiceRolls: [Int]
+    counter: Int
   }
 `;
+
+const lorem = () => {
+  return fs.readFileSync('lorem.txt', 'utf8').split(/\n+/).filter(Boolean);
+}
+
+function random_range(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+let counter = 0;
+
+const randomDiceRoll = (sides = 6) => Math.ceil(random_range(1, 6));
+
+const randomArray = (count, sides = 6) => {
+  return Array.from({length: count}, () => randomDiceRoll(sides));
+};
 
 const resolvers = {
   Query: {
     greeting: () => "Hello, world!",
     names: () => ['lorem', 'ipsum', 'dolor', 'sit', 'amet'],
-    lorem: () => fs.readFileSync('lorem.txt', 'utf8').split(/\n+/).filter(Boolean)
+    lorem,
+    randomDiceRolls: () => randomArray(random_range(3, 7)),
+    counter: () => ++counter
   }
 };
 
