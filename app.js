@@ -24,17 +24,31 @@ const typeDefs = gql`
     counter: Int
     today: DayOfWeek
     users: [User!]!
+    "List of Monty Python members"
     pythons: [Python!]!
   }
+  """
+  ## Python
+  This is type of a member of the
+  [Monty Python](https://en.wikipedia.org/wiki/Monty_Python)
+  """
   type Python {
     first: String!
     last: String!
   }
+  """
+  ## User
+  This is type of a user
+  """
   type User {
     full_name: String!
     nick: String
     address: Address
   }
+  """
+  ## Address
+  This is type of the User adress
+  """
   type Address {
     street: String!
     number: String
