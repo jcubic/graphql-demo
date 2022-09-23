@@ -30,6 +30,7 @@ const typeDefs = gql`
   [Monty Python](https://en.wikipedia.org/wiki/Monty_Python)
   """
   type Python {
+    id: String!
     first: String!
     last: String!
   }
